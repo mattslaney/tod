@@ -6,6 +6,7 @@ FROM debian:${DEBIAN_VERSION}
 # see: https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG DEBIAN_VERSION
 ARG TOKEN
+ARG FS_PASSWORD
 
 # By default, install the full set of FreeSWITCH packages.  Specify an alternative with:
 #   --build-arg="FS_META_PACKAGE=freeswitch-meta-vanilla"
@@ -29,6 +30,7 @@ RUN apt-get update -qq \
     && apt-get install -y --no-install-recommends ca-certificates gnupg2 gosu locales wget \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
+ENV FS_PASSWORD $FS_PASSWORD
 
 # https://freeswitch.org/confluence/display/FREESWITCH/Debian
 # https://developer.signalwire.com/freeswitch/FreeSWITCH-Explained/Installation/Linux/Debian_67240088/
