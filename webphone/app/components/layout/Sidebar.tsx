@@ -1,8 +1,13 @@
 import React from "react";
 import SidebarIcon from "../controls/SidebarIcon";
 import { MdContacts, MdDialpad, MdSettings, MdVoicemail } from "react-icons/md";
+import PhoneSettings from "../settings/PhoneSettings";
 
-const Sidebar = () => {
+interface SidebarProps {
+  openModal: any
+}
+
+const Sidebar = ({openModal}: SidebarProps) => {
   return (
     <div
       className="flex w-16 flex-col 
@@ -12,7 +17,7 @@ const Sidebar = () => {
       <SidebarIcon icon={<MdContacts />} text="Contacts" />
       <SidebarIcon icon={<MdVoicemail />} text="Voicemail" />
       <div className="flex-grow"></div>
-      <SidebarIcon icon={<MdSettings />} text="Settings" />
+      <SidebarIcon icon={<MdSettings />} text="Settings" onClick={() => openModal(<PhoneSettings/>)}/>
     </div>
   );
 };

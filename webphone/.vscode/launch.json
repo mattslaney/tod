@@ -17,6 +17,19 @@
       "name": "Attach to Edge",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "Launch in Firefox",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "webpack://_n_e/app",
+          "path": "${workspaceFolder}/app"
+        },
+      ]
     }
   ]
 }
