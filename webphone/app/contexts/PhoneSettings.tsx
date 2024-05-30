@@ -21,16 +21,32 @@ export const usePhoneSettings = (): PhoneSettingsContextType => {
     return context;
 }
 
+export const useReadOnlyPhoneSettings = (): PhoneSettings => {
+    const context = useContext(PhoneSettingsContext);
+    if (!context) {
+        throw new Error('useReadOnlyPhoneSettings must be used within a PhoneSettingsProvider');
+    }
+    return context.phoneSettings;
+}
+
 interface PhoneSettingsProviderProps {
     children: React.ReactNode;
   }
 
 export const PhoneSettingsProvider = ({children}: PhoneSettingsProviderProps) => {
-    const [phoneSettings, setPhoneSettings] = useState<PhoneSettings>({
+    let initialPhoneSettings = {
         username: '',
         password: '',
         server: '',
-    });
+    };
+
+    console.log(typeof window);
+    if(typeof window !== 'undefined') {
+        const storedPhoneSettings = localStorage.getItem('phoneSettings');
+        initialPhoneSettings = storedPhoneSettings ? JSON.parse(storedPhoneSettings) : initialPhoneSettings
+    }
+
+    const [phoneSettings, setPhoneSettings] = useState<PhoneSettings>(initialPhoneSettings);
     
     const updatePhoneSettings = (newSettings: PhoneSettings) => {
         setPhoneSettings(newSettings);
