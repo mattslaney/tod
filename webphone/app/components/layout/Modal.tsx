@@ -23,7 +23,7 @@ const Modal = ({ show, closeModal, children }: ModalProps) => {
     bg-black bg-opacity-35`}
       onClick={handleClose}
     >
-      <div className="bg-white text-black dark:bg-gray-950 dark:text-gray-300 rounded-xl">
+      <div className="bg-white text-black dark:bg-gray-950 dark:text-gray-300 rounded-xl p-10">
         {children}
       </div>
     </div>

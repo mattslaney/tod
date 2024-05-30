@@ -1,48 +1,54 @@
-import { usePhoneSettings } from "@/app/contexts/PhoneSettings";
-import React from "react";
+import { usePhoneSettings } from "@/app/hooks/usePhoneSettings";
+import React, { useEffect, useState } from "react";
 
 const PhoneSettings = () => {
   const { phoneSettings, updatePhoneSettings } = usePhoneSettings();
+  const [username, setUsername] = useState(phoneSettings.username);
+  const [password, setPassword] = useState(phoneSettings.password);
+  const [server, setServer] = useState(phoneSettings.server);
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUsernameChange = (e: React.FocusEvent<HTMLInputElement>) => {
     updatePhoneSettings({ ...phoneSettings, username: e.target.value });
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: React.FocusEvent<HTMLInputElement>) => {
     updatePhoneSettings({ ...phoneSettings, password: e.target.value });
   };
 
-  const handleServerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleServerChange = (e: React.FocusEvent<HTMLInputElement>) => {
     updatePhoneSettings({ ...phoneSettings, server: e.target.value });
   };
   return (
-    <div className="flex flex-col p-10">
-      <h1 className="text-xl font-bold mb-4">Phone Settings</h1>
-      <label className="flex items-center mb-4">
+    <div className="flex flex-col">
+      <h1 className="mb-4 text-xl font-bold">Phone Settings</h1>
+      <label className="mb-4 flex items-center">
         <span className="w-1/3">Username:</span>
         <input
           type="text"
-          value={phoneSettings.username}
-          onChange={handleUsernameChange}
-          className="w-2/3 px-2 py-1 border rounded"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          onBlur={handleUsernameChange}
+          className="w-2/3 rounded border px-2 py-1"
         />
       </label>
-      <label className="flex items-center mb-4">
+      <label className="mb-4 flex items-center">
         <span className="w-1/3">Password:</span>
         <input
           type="password"
-          value={phoneSettings.password}
-          onChange={handlePasswordChange}
-          className="w-2/3 px-2 py-1 border rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onBlur={handlePasswordChange}
+          className="w-2/3 rounded border px-2 py-1"
         />
       </label>
       <label className="flex items-center">
-        <span className="w-1/3">Server IP Address/Hostname:</span>
+        <span className="w-1/3">Server:</span>
         <input
           type="text"
-          value={phoneSettings.server}
-          onChange={handleServerChange}
-          className="w-2/3 px-2 py-1 border rounded"
+          value={server}
+          onChange={(e) => setServer(e.target.value)}
+          onBlur={handleServerChange}
+          className="w-2/3 rounded border px-2 py-1"
         />
       </label>
     </div>

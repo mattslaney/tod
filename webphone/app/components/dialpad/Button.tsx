@@ -31,7 +31,7 @@ const Button = ({ label, icon, type }: ButtonProps) => {
   let content = icon ? <FaPhone /> : label;
   return (
     <button
-      className={`${typeStyles[type]} flex size-10 items-center justify-center rounded-md p-2 font-bold`}
+      className={`${typeStyles[type]} flex size-10 items-center justify-center rounded-md p-2 font-bold shadow-sm brightness-100 hover:brightness-90 hover:shadow-lg`}
       title={label}
     >
       {content}

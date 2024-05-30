@@ -1,6 +1,12 @@
-import Image from "next/image";
+"use client"
+
 import Main from "./components/layout/Main";
+import { PhoneSettingsProvider } from "./contexts/PhoneSettings";
 
 export default function Home() {
-  return <Main />;
+  return (
+    <PhoneSettingsProvider>
+      <Main />
+    </PhoneSettingsProvider>
+  );
 }
