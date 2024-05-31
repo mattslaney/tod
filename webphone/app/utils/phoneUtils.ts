@@ -52,7 +52,7 @@ export class SimplePhone {
       },
     };
     console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-    if(window.location.protocol === 'https') {
+    if(window.location.protocol === 'https:') {
       console.log("using wss");
       this.simpleUser = new SimpleUser(`wss://${this.wsServer}:${this.wssPort}`, options)
     } else {
