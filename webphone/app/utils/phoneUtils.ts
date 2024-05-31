@@ -51,7 +51,14 @@ export class SimplePhone {
         },
       },
     };
-    this.simpleUser = new SimpleUser(`ws://${this.wsServer}:${this.wsPort}`, options)
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+    if(window.location.protocol === 'https') {
+      console.log("using wss");
+      this.simpleUser = new SimpleUser(`wss://${this.wsServer}:${this.wssPort}`, options)
+    } else {
+      console.log("using ws");
+      this.simpleUser = new SimpleUser(`ws://${this.wsServer}:${this.wsPort}`, options)
+    }
   }
 
   public async register(): Promise<void> {

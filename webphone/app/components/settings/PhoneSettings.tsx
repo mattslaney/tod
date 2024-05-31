@@ -1,6 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/app/hooks/useRedux";
-import { updatePhone, phonePassword, phoneServer, phoneUsername, updatePhoneStatus } from "@/app/slices/phoneSlice";
+import {
+  updatePhone,
+  phonePassword,
+  phoneServer,
+  phoneUsername,
+  updatePhoneStatus,
+} from "@/app/slices/phoneSlice";
 import { PhoneContext } from "@/app/contexts/Phones";
 
 const PhoneSettings = () => {
@@ -11,13 +17,21 @@ const PhoneSettings = () => {
   const [server, setServer] = useState(useAppSelector(phoneServer));
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement>) => {
-    dispatch(updatePhone({username, password, server}));
-    phoneContext?.updatePhone(0, {username, password, server});
+    dispatch(updatePhone({ username, password, server }));
+    try {
+      phoneContext?.updatePhone(0, { username, password, server });
+    } catch (error) {
+      console.error("Could not update phone");
+    }
   };
 
   const handleRegister = async () => {
     const phone = phoneContext?.getPhone(0);
-    await phone?.register();
+    try {
+      await phone?.register();
+    } catch (error) {
+      console.error("Could not register phone");
+    }
   };
 
   return (
@@ -53,7 +67,12 @@ const PhoneSettings = () => {
           className="w-2/3 rounded border px-2 py-1"
         />
       </label>
-      <button onClick={handleRegister} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Register Phone</button>
+      <button
+        onClick={handleRegister}
+        className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
+      >
+        Register Phone
+      </button>
     </div>
   );
 };
