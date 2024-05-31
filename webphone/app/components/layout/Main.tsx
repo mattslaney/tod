@@ -7,8 +7,6 @@ import Statusbar from "./Statusbar";
 import Topbar from "./Topbar";
 import View from "./View";
 import Modal from "./Modal";
-import { useReadOnlyPhoneSettings } from "@/app/hooks/usePhoneSettings";
-import { SimplePhone } from "@/app/utils/phoneUtils";
 
 require('../../utils/phoneUtils')
 
@@ -24,28 +22,6 @@ const Main = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-  const phoneSettings = useReadOnlyPhoneSettings();
-
-    useEffect(() => {
-    if (phoneSettings.username && phoneSettings.password && phoneSettings.server) {
-      console.log(phoneSettings);
-      const simplePhone = new SimplePhone(
-        phoneSettings.server,
-        phoneSettings.username,
-        phoneSettings.password
-      );
-
-      // Register the phone
-      simplePhone.register();
-
-      return () => {
-        // Unregister the phone when the component unmounts
-        //simplePhone.unregister();
-      };
-    }
-  }, [phoneSettings]);
-
 
   return (
     <>

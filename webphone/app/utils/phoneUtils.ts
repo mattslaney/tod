@@ -1,6 +1,12 @@
 import { UserAgent } from "sip.js";
 import { SimpleUser, SimpleUserOptions } from "sip.js/lib/platform/web";
 
+export interface PhoneConfig {
+  username: string,
+  password: string,
+  server: string
+}
+
 export class SimplePhone {
   private simpleUser: SimpleUser | undefined;
 
@@ -13,20 +19,13 @@ export class SimplePhone {
   private wsPort: number;
   private wssPort: number;
 
-  constructor(
-    sipServer: string,
-    username: string,
-    password: string,
-    wsServer: string = sipServer,
-    wsPort: number = 5066,
-    wssPort: number = 7443,
-  ) {
-    this.username = username;
-    this.password = password;
-    this.sipServer = sipServer;
-    this.wsServer = wsServer;
-    this.wsPort = wsPort;
-    this.wssPort = wssPort;
+  constructor(config: PhoneConfig) {
+    this.username = config.username;
+    this.password = config.password;
+    this.sipServer = config.server;
+    this.wsServer = config.server;
+    this.wsPort = 5066;
+    this.wssPort = 7443;
     this.aor = `sip:${this.username}@${this.sipServer}`;
 
     const options: SimpleUserOptions = {
