@@ -32,16 +32,18 @@ const Dialpad = () => {
     }
   }
 
-  window.addEventListener("PhoneStatus", (e: CustomEventInit) => {
-    switch(e.detail.status) {
-      case "ringing":
-        setRinging(true);
-        break;
-      default:
-        setRinging(false);
-        break;
-    }
-  });
+  if(typeof window !== 'undefined') {
+    window.addEventListener("PhoneStatus", (e: CustomEventInit) => {
+      switch(e.detail.status) {
+        case "ringing":
+          setRinging(true);
+          break;
+        default:
+          setRinging(false);
+          break;
+      }
+    });
+  }
 
   return (
     <div className="w-32">
