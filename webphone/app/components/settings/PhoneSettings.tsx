@@ -1,13 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/app/hooks/useRedux";
+import { SimpleUserDelegate } from "sip.js/lib/platform/web";
+
 import {
   updatePhone,
   phonePassword,
   phoneServer,
-  phoneUsername,
-  updatePhoneStatus,
+  phoneUsername
 } from "@/app/slices/phoneSlice";
 import { PhoneContext } from "@/app/contexts/Phones";
+import { PhoneStatus, SimplePhone } from "@/app/utils/phoneUtils";
 
 const PhoneSettings = () => {
   const phoneContext = useContext(PhoneContext);

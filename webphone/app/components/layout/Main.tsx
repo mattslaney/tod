@@ -14,6 +14,16 @@ const Main = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
+  window.addEventListener("PhoneStatus", (e: CustomEventInit) => {
+    switch(e.detail.status) {
+      case "ringing":
+        new Audio('ring.wav').play();
+        break;
+      default:
+        break;
+    }
+  });
+
   const openModal = (content: React.ReactNode) => {
     setModalContent(content);
     setShowModal(true);

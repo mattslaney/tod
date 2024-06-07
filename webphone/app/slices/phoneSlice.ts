@@ -4,25 +4,16 @@ import { SimplePhone } from '../utils/phoneUtils';
 import { useContext } from 'react';
 import { PhoneContext } from '../contexts/Phones';
 
-enum PhoneStatus {
-    online,
-    ringing,
-    offline,
-    error
-}
-
 interface PhoneConfig {
     username: string,
     password: string,
     server: string,
-    status?: PhoneStatus,
 }
 
 const initialState: PhoneConfig[] = [{
     username: '',
     password: '',
     server: '',
-    status: PhoneStatus.offline,
 }];
 
 const phoneSlice = createSlice({
@@ -34,17 +25,12 @@ const phoneSlice = createSlice({
                 username: action.payload.username,
                 password: action.payload.password,
                 server: action.payload.server || "127.0.0.1",
-                status: PhoneStatus.offline,
             })
         },
         updatePhone(state, action: PayloadAction<PhoneConfig>) {
             state[0].username = action.payload.username;
             state[0].password = action.payload.password;
             state[0].server = action.payload.server;
-            state[0].status = PhoneStatus.offline;
-        },
-        updatePhoneStatus(state, action: PayloadAction<{ status: PhoneStatus }>) {
-            state[0].status = action.payload.status;
         },
         removePhone(state, action: PayloadAction<number>) {
             
@@ -52,7 +38,7 @@ const phoneSlice = createSlice({
     }
 })
 
-export const {addPhone, removePhone, updatePhone, updatePhoneStatus} = phoneSlice.actions;
+export const {addPhone, removePhone, updatePhone} = phoneSlice.actions;
 
 export const phoneUsername = (state: RootState) => state.phones[0].username;
 export const phonePassword = (state: RootState) => state.phones[0].password;

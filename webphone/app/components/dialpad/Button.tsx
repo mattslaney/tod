@@ -24,15 +24,17 @@ enum ButtonIcons {
 interface ButtonProps {
   label: string;
   icon: string;
-  type: ButtonType;
+  type: ButtonType,
+  clickHandler: any
 }
 
-const Button = ({ label, icon, type }: ButtonProps) => {
+const Button = ({ label, icon, type, clickHandler }: ButtonProps) => {
   let content = icon ? <FaPhone /> : label;
   return (
     <button
       className={`${typeStyles[type]} flex size-10 items-center justify-center rounded-md p-2 font-bold shadow-sm brightness-100 hover:brightness-90 hover:shadow-lg`}
       title={label}
+      onClick={clickHandler}
     >
       {content}
     </button>
